@@ -21,75 +21,8 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/index">Grodata Solutions</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-              <a class="nav-link" href="/index">
-                  <i class="fa fa-fw fa-dashboard"></i>
-                  <span class="nav-link-text">Dashboard</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Entry">
-              <a class="nav-link " href="/dataentry" >
-                  <i class="fa fa-fw fa-table"></i>
-                  <span class="nav-link-text">Data Entry</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Search">
-              <a class="nav-link " href="/datasearch">
-                  <i class="fa fa-fw fa-file"></i>
-                  <span class="nav-link-text">Data Search</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAdmin" >
-                  <i class="fa fa-fw fa-user"></i>
-                  <span class="nav-link-text">Admin</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseAdmin">
-                  <li>
-                      <a href="/adminuser">Users</a>
-                  </li>
-                  <li>
-                      <a href="/dataupload">Data Upload</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseReport" >
-                  <i class="fa fa-fw fa-list"></i>
-                  <span class="nav-link-text">Report</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseReport">
-                  <li>
-                      <a href="/dailyreport">Daily Report</a>
-                  </li>
-                  <li>
-                      <a href="/targetreport">Target Report</a>
-                  </li>
-              </ul>
-          </li>
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+     @extends('header')
+
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Example DataTables Card-->
@@ -98,26 +31,27 @@
           <i class="fa fa-bookmark"></i> Report
         </div>
         <div class="card-body">
+
+        <form action="<?php echo url('/'); ?>/targetreportreturn" method="post">
+            <input type="hidden" id="token" name="_token" value="<?php echo csrf_token(); ?>" >
             <div class="table">
                 <table class="table table-bordered col-md-12" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                         <td width="40%"rowspan=$rowspan style='vertical-align: middle;text-align: center;'>
                             user:
-                            
-                        
-                        <?php foreach($users as $s) {?>
                         <div class="form-group ">
-                            <select multiple class="form-control" id="exampleFormControlSelect2">
-                                <option><?php echo $s->user_name; ?></option>
+                               <select name="name" aria-controls="dataTable" class="form-control form-control-sm">
+                                  <?php foreach($users as $s) {?>
+                                        <option value="<?php echo $s->fname; ?>"><?php echo $s->fname; ?></option>
+                                  <?php }?>
                             </select>
                         </div>
-                        <?php }?>
                         
                         </td>
                         
                         <td width="25%" rowspan=$row_host1 style='vertical-align: middle;'>from:
-                            <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-                                <input class="form-control col-md-9" type="text" />
+                            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="start" class="form-control col-md-9" type="text" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
@@ -125,8 +59,8 @@
                         </td>
                         
                         <td width="25%" rowspan=$row_host1 style='vertical-align: middle;'>to  :
-                            <div id="datepicker1" class="input-group date" data-date-format="mm-dd-yyyy">
-                                <input class="form-control col-md-9" type="text" />
+                            <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
+                                <input name="end" class="form-control col-md-9" type="text" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
@@ -134,11 +68,12 @@
                         </td>
             
                     <td rowspan = $ rowspan style='vertical-align: middle;text-align: center;'>
-            
-            <a href = "/targetreportreturn" role= "button" class = "btn btn-primary ">Filter</a>
-        </td>
-        </tr>
+                    <button type="submit" role= "button" class = "btn btn-primary ">Filter</a>
+                </td>
+                </tr>
                 </table>
+             </form>
+
             </div>
         </div>
     
@@ -177,27 +112,28 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <!-- <script src="js/sb-admin-datatables.min.js"></script>-->
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!-- <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>-->
     
     
     <script>
         $(function () {
           $("#datepicker").datepicker({
-                                      autoclose: true,
-                                      todayHighlight: true
-                                      }).datepicker('update', new Date());
+                autoclose: true,
+                todayHighlight: true
+              }).datepicker('update', new Date());
+          });
+          $(function () {
+            $("#datepicker1").datepicker({
+               autoclose: true,
+               todayHighlight: true
+             }).datepicker('update', new Date());
           });
     </script>
     <script>
-        $(function () {
-          $("#datepicker1").datepicker({
-                                      autoclose: true,
-                                      todayHighlight: true
-                                      }).datepicker('update', new Date());
-          });
+          
     </script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     

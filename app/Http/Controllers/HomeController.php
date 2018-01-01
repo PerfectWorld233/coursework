@@ -3,20 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use Illuminate\Support\Facades\Redirect;
 use Session;
+use DB;
 
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-
-
     /**
      * Show the application dashboard.
      *
@@ -24,20 +17,25 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->get('superadmin_login') == true || $request->session()->get('admin_login') == true || $request->session()->get('user_login') == true) {
-            return redirect()->action('HomeController@home');
+        if ($request->session()->get('superadmin_login') == true 
+            || $request->session()->get('admin_login') == true 
+            || $request->session()->get('user_login') == true) {
+            return view('index', [
+                    'name' => $this->getUserName(),
+                    'user' => $this->getUser()
+                ]);
         } else {
             return view('login');
         }
-
     }
-
 
     public function login(Request $request)
     {
+      
         $email = $request->email;
         $password = $request->password;
-
+        // echo $password;
+        // echo sha1($password);die;
         $user = DB::table('user')
             ->where([
                 ['email', $email],
@@ -45,11 +43,9 @@ class HomeController extends Controller
             ])->first();
         if ($user && $user->type == 2) {
             $superadmin_id = $user->id;
-            $superadmin_login = TRUE;
-
+            $request->session()->push('superadmin_login', true);
             $request->session()->push('superadmin_id', $superadmin_id);
-            $request->session()->push('superadmin_login', $superadmin_login);
-
+            // var_dump($request->session()->get('superadmin_login'));die;
             return \redirect()->to('/home');
 
         } else {
@@ -83,7 +79,6 @@ class HomeController extends Controller
     {
         $request->session()->flush();
         $request->session()->flash('message', 'Logged out successfully');
-
         return redirect()->action('HomeController@index');
     }
 
@@ -92,14 +87,10 @@ class HomeController extends Controller
         $superadmin = $request->session()->get('superadmin_login');
         $admin = $request->session()->get('admin_login');
         $user = $request->session()->get('user_login');
-        if (!$superadmin) {
-            if (!$admin) {
-                if (!$user) {
-                    return redirect()->action('HomeController@index');
-                }
-            }
-            return view('index');
+        if (!$superadmin || !$admin || !$user) {
+            return redirect()->action('HomeController@index');
         }
+
         return view('index');
     }
 

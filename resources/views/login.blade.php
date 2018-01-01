@@ -21,15 +21,15 @@
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
       <div class="card-body">
-    <?php
-        if(Session::has('message')){
-            echo Session::get('message');
-        }
-    ?>
+      <!-- <?php
+          if(Session::has('message')){
+              echo Session::get('message');
+          }
+      ?>-->
         <form action="<?php echo url('/'); ?>/login" method="post">
           <div class="form-group">
             <label for="email">Email address</label>
-            <input class="form-control" name="email" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input class="form-control" name="email" type="text" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
           <div class="form-group">
             <label for="password">Password</label>

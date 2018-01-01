@@ -20,75 +20,7 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/index">Grodata Solutions</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-              <a class="nav-link" href="/index">
-                  <i class="fa fa-fw fa-dashboard"></i>
-                  <span class="nav-link-text">Dashboard</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Entry">
-              <a class="nav-link " href="/dataentry" >
-                  <i class="fa fa-fw fa-table"></i>
-                  <span class="nav-link-text">Data Entry</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Search">
-              <a class="nav-link " href="/datasearch">
-                  <i class="fa fa-fw fa-file"></i>
-                  <span class="nav-link-text">Data Search</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAdmin" >
-                  <i class="fa fa-fw fa-user"></i>
-                  <span class="nav-link-text">Admin</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseAdmin">
-                  <li>
-                      <a href="/adminuser">Users</a>
-                  </li>
-                  <li>
-                      <a href="/dataupload">Data Upload</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseReport" >
-                  <i class="fa fa-fw fa-list"></i>
-                  <span class="nav-link-text">Report</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseReport">
-                  <li>
-                      <a href="/dailyreport">Daily Report</a>
-                  </li>
-                  <li>
-                      <a href="/targetreport">Target Report</a>
-                  </li>
-              </ul>
-          </li>
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  @extends('header')
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Example DataTables Card-->
@@ -108,11 +40,18 @@
                             <th>Deleted</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
-                     
-
+                        <?php foreach($report as $res) { ?>
+                        <tr>
+                            <td><a href="<?php echo url('/'); ?>/dailyreport?date=<?php echo $res->entry_time; ?>" ><?php echo $res->entry_time; ?></a></td>
+                            <td><?php echo $sub; ?></td>
+                            <td><?php echo $res->new; ?></td>
+                            <td><?php echo $res->up; ?></td>
+                            <td><?php echo $res->del; ?></td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
-                                        
                 
                 </table>
             </div>
@@ -155,28 +94,27 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <!-- <script src="js/sb-admin-datatables.min.js"></script>-->
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+   <!--  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+   <!--  <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>--> 
     
     
-    <script>
+   <!--  <script>
         $(document).ready(function(){
-                          var date_input=$('input[name="date"]'); //our date input has the name "date"
-                          var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-                          var options={
-                          format: 'mm/dd/yyyy',
-                          container: container,
-                          todayHighlight: true,
-                          
-                          autoclose: true,
-                          };
-                          date_input.datepicker(options)({
-                          orientation:"bottom right",
-                          });
-                          })
-        </script>
+            var date_input=$('input[name="date"]'); //our date input has the name "date"
+            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+            var options={
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input.datepicker(options)({
+               orientation:"bottom right",
+            });
+        })
+        </script>-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     
     <!-- Bootstrap Date-Picker Plugin -->

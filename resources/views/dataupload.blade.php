@@ -20,94 +20,31 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/index">Grodata Solutions</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-              <a class="nav-link" href="/index">
-                  <i class="fa fa-fw fa-dashboard"></i>
-                  <span class="nav-link-text">Dashboard</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Entry">
-              <a class="nav-link " href="/dataentry" >
-                  <i class="fa fa-fw fa-table"></i>
-                  <span class="nav-link-text">Data Entry</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Search">
-              <a class="nav-link " href="/datasearch">
-                  <i class="fa fa-fw fa-file"></i>
-                  <span class="nav-link-text">Data Search</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAdmin" >
-                  <i class="fa fa-fw fa-user"></i>
-                  <span class="nav-link-text">Admin</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseAdmin">
-                  <li>
-                      <a href="/adminuser">Users</a>
-                  </li>
-                  <li>
-                      <a href="/dataupload">Data Upload</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseReport" >
-                  <i class="fa fa-fw fa-list"></i>
-                  <span class="nav-link-text">Report</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseReport">
-                  <li>
-                      <a href="/dailyreport">Daily Report</a>
-                  </li>
-                  <li>
-                      <a href="/targetreport">Target Report</a>
-                  </li>
-              </ul>
-          </li>
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+ @extends('header')
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Example DataTables Card-->
       <div class="card mb-3" >
         <div class="card-header">
-          <i class="fa fa-upload"></i> Data Upload</div>
+          <i class="fa fa-upload"></i>
+          <font color="#FF0000">Notice Only Organisation Exported Data Test Upload</font> 
+       </div>
+
+        <form action="<?php echo url('/'); ?>/csv" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>" >
         <div class="card-body">
             <div class="form-row">
-            <div class="col-md-6">
-                <label>Choose a file to upload</label>
-                <label class="custom-file">
-                    <input type="file" id="file2" class="custom-file-input" >
-                        <span class="custom-file-control"></span>
-                        
-                </label>
-        </div></div>
-            <div></br>
-                <button type = "button" class = "btn btn-primary " data-toggle="modal" data-target="#exampleModal2">File Upload</button>
-                
+                <div class="col-md-6">
+                    <label>Choose a file to upload</label>
+                    <label class="custom-file">
+                        <input type="hidden" name="action" value="import" />
+                        <input type="file" name="csv_file" id="file2" class="custom-file-input" />
+                            <span class="custom-file-control"></span>
+                    </label>
+                </div>
+            </div>
+            <div>
+             </br> <button input type="submit"   class = "btn btn-primary " data-toggle="modal" data-target="#exampleModal2">File Upload</button>
                 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -127,6 +64,8 @@
                 
             </div>
         </div>
+        </from>
+
       </div>
     </div>
     <!-- /.container-fluid-->
@@ -165,9 +104,9 @@
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!--<script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>-->
   </div>
 </body>
 

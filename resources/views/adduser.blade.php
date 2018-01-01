@@ -20,163 +20,87 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/index">Grodata Solutions</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-              <a class="nav-link" href="/index">
-                  <i class="fa fa-fw fa-dashboard"></i>
-                  <span class="nav-link-text">Dashboard</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Entry">
-              <a class="nav-link " href="/dataentry" >
-                  <i class="fa fa-fw fa-table"></i>
-                  <span class="nav-link-text">Data Entry</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Search">
-              <a class="nav-link " href="/datasearch">
-                  <i class="fa fa-fw fa-file"></i>
-                  <span class="nav-link-text">Data Search</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAdmin" >
-                  <i class="fa fa-fw fa-user"></i>
-                  <span class="nav-link-text">Admin</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseAdmin">
-                  <li>
-                      <a href="/adminuser">Users</a>
-                  </li>
-                  <li>
-                      <a href="/dataupload">Data Upload</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseReport" >
-                  <i class="fa fa-fw fa-list"></i>
-                  <span class="nav-link-text">Report</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseReport">
-                  <li>
-                      <a href="/dailyreport">Daily Report</a>
-                  </li>
-                  <li>
-                      <a href="/targetreport">Target Report</a>
-                  </li>
-              </ul>
-          </li>
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  @extends('header')
   <div class="content-wrapper">
-    <div class="container-fluid">
-      <!-- Example DataTables Card-->
-      <div class="card mb-3" >
-        <div class="card-header">
-          <i class="fa fa-user"></i> Admin - User
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <label>ID</label>
-                        </div>
-                        <div class="col-md-6">
-                            
-                        </div>
-                        </div>
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <label></br>Email/Username</label>
-                        </div>
-                        <div class="col-md-6">
-                            </br><input class="form-control" id="InputName" type="text" aria-describedby="nameHelp" >
+        <form action="<?php echo url('/'); ?>/add_user" method="post">
+            <div class="container-fluid">
+            <!-- Example DataTables Card-->
+            <div class="card mb-3" >
+                <div class="card-header">
+                <i class="fa fa-user"></i> Admin - User
+                </div>
+            
+                <div class="card-body">
+                    <div class="table-responsive">
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <label></br>Email/Uname</label>
                                 </div>
+                                <div class="col-md-6">
+                                    </br><input name="email" class="form-control" id="InputName" type="text" aria-describedby="nameHelp" >
+                                        </div>
+                                </div>
+                            </div>
+                    <div class="form-row">
+                        <div class="col-md-2">
+                            <label></br>First Name</label>
                         </div>
-                    </div>
-            <div class="form-row">
-                <div class="col-md-6">
-                    <label></br>First Name</label>
+                        <div class="col-md-6">
+                            </br><input name="fname"  class="form-control" id="InputName" type="text" aria-describedby="nameHelp" >
+                                </div>
                 </div>
-                <div class="col-md-6">
-                    </br><input class="form-control" id="InputName" type="text" aria-describedby="nameHelp" >
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <label></br>Last Name</label>
+                    </div>
+                    <div class="col-md-6">
+                        </br><input name="lname" class="form-control" id="InputName" type="text" aria-describedby="nameHelp" >
+                            </div>
+                
+            </div>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        </br><label>User Level</label>
+                    </div>
+                    <div class="col-md-6">
+                        </br>
+                         <select name="userlevel" aria-controls="dataTable" class="form-control form-control-sm">
+                          <option value="0">User</option>
+                          <option value="1">Admin</option>
+                          <option value="2">SuperAdmin</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        </br><label>Password</label>
+                    </div>
+                    <div class="col-md-6">
+                        </br><input name="password" class="form-control" id="InputName" type="text" aria-describedby="nameHelp" />
+                    </div>
+                </div><div class="form-row">
+                    <div class="col-md-2">
+                        </br><label>Active</label>
+                    </div>
+                    <div class="col-md-6">
+                            </br><input name="active" type="checkbox" id="checkbox" class="checkbox" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2">
+                       <?php echo method_field('POST'); ?>
+                       <?php echo csrf_field(); ?>
+                        </br><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#save" />
+                            Save 
+                        </button>
                         </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6">
-                <label></br>Last Name</label>
-            </div>
-            <div class="col-md-6">
-                </br><input class="form-control" id="InputName" type="text" aria-describedby="nameHelp" >
-                    </div>
-        
-      </div>
-        <div class="form-row">
-            <div class="col-md-6">
-                </br><label>User Level</label>
-            </div>
-            <div class="col-md-6">
-                </br>User
-                    </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6">
-                </br><label>Password</label>
-            </div>
-            <div class="col-md-6">
-                </br><input class="form-control" id="InputName" type="text" aria-describedby="nameHelp" >
-            </div>
-        </div><div class="form-row">
-            <div class="col-md-6">
-                </br><label>Active</label>
-            </div>
-            <div class="col-md-6">
-                    </br><input type="checkbox" id="checkbox" class="checkbox">
-                        </label>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-1">
-                </br><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#save">
-                    Save 
-                </button>
                 </div>
-                <div class="col-md-1">
-                    </br><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cancel">
-                        Cancel
-                    </button>
+                </div>
+                </div>
                 </div>
             </div>
-
-
-
-
-            </div>
-        </div>
-        </div>
-      </div>
-    </div>
+        </form>
+ </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
     <!-- Scroll to Top Button-->
@@ -207,33 +131,33 @@
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    {{--  <script src="vendor/datatables/jquery.dataTables.js"></script>  --}}
+    {{--  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>  --}}
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
+    {{--  <script src="js/sb-admin-datatables.min.js"></script>  --}}
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     
     
-    <script>
+    {{--  <script>
         $(document).ready(function(){
-                          var date_input=$('input[name="date"]'); //our date input has the name "date"
-                          var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-                          var options={
-                          format: 'mm/dd/yyyy',
-                          container: container,
-                          todayHighlight: true,
-                          
-                          autoclose: true,
-                          };
-                          date_input.datepicker(options)({
-                          orientation:"bottom right",
-                          });
-                          })
-        </script>
+            var date_input=$('input[name="date"]'); //our date input has the name "date"
+            var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+            var options={
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            
+            autoclose: true,
+            };
+            date_input.datepicker(options)({
+            orientation:"bottom right",
+            });
+        })
+    </script>  --}}
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     
     <!-- Bootstrap Date-Picker Plugin -->

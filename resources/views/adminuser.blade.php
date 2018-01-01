@@ -20,82 +20,22 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/index">Grodata Solutions</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-              <a class="nav-link" href="/index">
-                  <i class="fa fa-fw fa-dashboard"></i>
-                  <span class="nav-link-text">Dashboard</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Entry">
-              <a class="nav-link " href="/dataentry" >
-                  <i class="fa fa-fw fa-table"></i>
-                  <span class="nav-link-text">Data Entry</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Search">
-              <a class="nav-link " href="/datasearch">
-                  <i class="fa fa-fw fa-file"></i>
-                  <span class="nav-link-text">Data Search</span>
-              </a>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAdmin" >
-                  <i class="fa fa-fw fa-user"></i>
-                  <span class="nav-link-text">Admin</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseAdmin">
-                  <li>
-                      <a href="/adminuser">Users</a>
-                  </li>
-                  <li>
-                      <a href="/dataupload">Data Upload</a>
-                  </li>
-              </ul>
-          </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
-              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseReport" >
-                  <i class="fa fa-fw fa-list"></i>
-                  <span class="nav-link-text">Report</span>
-              </a>
-              <ul class="sidenav-second-level collapse" id="collapseReport">
-                  <li>
-                      <a href="/dailyreport">Daily Report</a>
-                  </li>
-                  <li>
-                      <a href="/targetreport">Target Report</a>
-                  </li>
-              </ul>
-          </li>
-      </ul>
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-            <i class="fa fa-fw fa-angle-left"></i>
-          </a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  @extends('header')
+ 
   <div class="content-wrapper">
     <div class="container-fluid">
+     
       <!-- Example DataTables Card-->
       <div class="card mb-3" >
         <div class="card-header">
           <i class="fa fa-user"></i> User
         </div>
+        @if(Session::has('message'))                                            
+        <div class="alert alert-success">                                          
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{Session::get('message')}}
+        </div>  
+       @endif
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -109,6 +49,9 @@
                             <th>action</th>
                         </tr>
                     </thead>
+                    <?php echo method_field('POST'); ?>
+                    <?php echo csrf_field(); ?>
+                    <input type="hidden" id="token" name="_token" value="<?php echo csrf_token(); ?>" >
                     <tbody>
                         <?php foreach($users as $user) { ?>
                         <tr>
@@ -118,9 +61,10 @@
                             <td><?php echo $user->lname; ?></td>
                             <td><?php echo $user->active; ?></td>
                             <td>
-                                <a id="edit" href="useredit.html">
+                                <a id="edit" href="/edit_user?id=<?php echo $user->id; ?>">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                <a id="delete" data-toggle="modal" href="#myModal">
+                                <a id="delete" href="/delete_user?id=<?php echo $user->id; ?>">
+                                    <!--data-toggle="modal" href="#myModal"-->
                                     <i class="fa fa-trash-o offset-md-3" aria-hidden="true"></i></a>
                                 <!-- Modal -->
                                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -130,15 +74,13 @@
                                                 Are you sure to delete this?
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                                                <input type="hidden" id="del_id" value="<?php echo $user->id;?>" >
+                                                <button onclick="del_user()" type="button" class="btn btn-primary" data-dismiss="modal">Yes</button>
                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
-                                
                             </td>
                             </tr>
                         <?php } ?>
@@ -182,9 +124,9 @@
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+    {{--  <script src="js/sb-admin.min.js"></script>  --}}
     <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
+    {{--  <script src="js/sb-admin-datatables.min.js"></script>  --}}
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
@@ -194,7 +136,45 @@
     <!-- Bootstrap Date-Picker Plugin -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
+    <script>
+     function del_user() {
+		var formData = new FormData();
+        _token = $("#token").val();
+		id = $(".modal-footer #del_id").val();
+		formData.append("_token", _token);
+		formData.append("id", id);
+        console.log(id);
+		$.ajax({
+			url: "<?php echo url('/'); ?>/delete_user",
+			type: "POST",
+			data: formData,
+			dataType: 'json',
+			contentType: false,
+			processData: false,
+			timeout : 2000
+		})
+		.done(function (data) {
+			// 请求成功后要做的工作
+            //alert(data.msg);
+            if (data.code==0){
+               console.log("success");
+               window.location.href="<?php echo url('/'); ?>/adminuser"; 
+            }
+		})
+		.fail(function (xhr) {
+			// 请求失败后要做的工作
+			console.log('fail:' + JSON.stringify(xhr));
+		})
+		.error(function (xhr) {
+			console.log('error:' + xhr.responseText);
+		})
+		.always(function () {
+			// 不管成功或失败都要做的工作
+			//console.log('complete');
+		});
+		return false;
+    }
+    </script>
   </div>
 </body>
 
