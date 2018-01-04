@@ -9,7 +9,7 @@
   <meta name="author" content="">
   <title>Grodata Solutions</title>
   <!-- Latest compiled and minified CSS -->
-  
+
   <!-- Bootstrap core CSS-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <!-- Custom fonts for this template-->
@@ -19,21 +19,87 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
   <link href="css/chosen.css" rel="stylesheet" >
-  <link href="css/combo.select.css" rel="stylesheet" >
-  
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
   <!-- Navigation-->
-  @extends('header')
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="/index">Grodata Solutions</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+              <a class="nav-link" href="/index">
+                  <i class="fa fa-fw fa-dashboard"></i>
+                  <span class="nav-link-text">Dashboard</span>
+              </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Entry">
+              <a class="nav-link " href="/dataentry" >
+                  <i class="fa fa-fw fa-table"></i>
+                  <span class="nav-link-text">Data Entry</span>
+              </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Data Search">
+              <a class="nav-link " href="/datasearch">
+                  <i class="fa fa-fw fa-file"></i>
+                  <span class="nav-link-text">Data Search</span>
+              </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
+              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAdmin" >
+                  <i class="fa fa-fw fa-user"></i>
+                  <span class="nav-link-text">Admin</span>
+              </a>
+              <ul class="sidenav-second-level collapse" id="collapseAdmin">
+                  <li>
+                      <a href="/adminuser">Users</a>
+                  </li>
+                  <li>
+                      <a href="/dataupload">Data Upload</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Report">
+              <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseReport" >
+                  <i class="fa fa-fw fa-list"></i>
+                  <span class="nav-link-text">Report</span>
+              </a>
+              <ul class="sidenav-second-level collapse" id="collapseReport">
+                  <li>
+                      <a href="/dailyreport">Daily Report</a>
+                  </li>
+                  <li>
+                      <a href="/targetreport">Target Report</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+      <ul class="navbar-nav sidenav-toggler">
+        <li class="nav-item">
+          <a class="nav-link text-center" id="sidenavToggler">
+            <i class="fa fa-fw fa-angle-left"></i>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        {{--<li class="nav-item">--}}
+          {{--<a class="nav-link" data-toggle="modal" data-target="#exampleModal">--}}
+            {{--welcome <?php echo $name ?> <i class="fa fa-fw fa-sign-out"></i>Logout</a>--}}
+        {{--</li>--}}
+      </ul>
+    </div>
+  </nav>
   <div class="content-wrapper">
     <div class="container-fluid">
       <!-- Example DataTables Card-->
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-table"></i> Data Entry</div>
-        
-        
+
+
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" href="/dataentry">Contact</a>
@@ -46,17 +112,9 @@
     <form action="<?php echo url('/'); ?>/add_contact" method="post">
         <?php echo method_field('POST'); ?>
         <?php echo csrf_field(); ?>
-
-        @if(Session::has('message'))                                            
-        <div class="alert alert-success">                                          
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {{Session::get('message')}}
-        </div>  
-        @endif
-
         <div class="card-body container" id="needs-validation" novalidate>
           <div class="table-responsive">
-              
+
               <div class="form-row">
               <div class="col-sm-6">
                   <label>Record type</label>
@@ -66,7 +124,7 @@
                       <option value="personal">Personal</option>
                   </select>
               </div>
-              
+
               <div class="col-sm-6">
                   <label >Record status</label>
                   <select name="recordStatus" aria-controls="dataTable" class="chosen-select form-control form-control-sm" multiple >
@@ -115,10 +173,11 @@
                   <div class="col-sm-6">
                       <label for="InputName"></br>Mobile</label>
                       <input name="mobile" class="form-control form-control-sm" id="InputName" type="text" >
-                  </div>
-                  
-        
-                  <div class="col-sm-6">
+                          </div>
+
+
+
+                      <div class="col-sm-6">
                           <label for="InputName"></br>Person types</label>
                           <select name="personType" aria-controls="dataTable" class="form-control form-control-sm chosen-select" data-live-search="true" multiple>
                               <option value="academic - lecturer">Academic - Lecturer</option>
@@ -175,16 +234,12 @@
                               <option value="teacher">Teacher</option>
                               <option value="technician">Technician</option>
                           </select>
-                </div>
+                      </div>
 
-                  
+
                   <div class="col-sm-6">
                       <label for="InputName"></br>Organisation</label>
-                      {{--<select id="sel_org" name="organisation">--}}
-                          {{--  <option value=""></option>  --}}
-                      <input id="product_search" class="form-control form-control-sm" type="text" data-provide="typeahead"
-                             data-source='["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"]'>
-                      {{--</select>--}}
+                      <input name="organisation" class="form-control form-control-sm" id="InputName" type="text"  >
                  </div>
                   <div class="col-sm-6">
                       <label for="InputName"></br>Department Level 1</label>
@@ -195,16 +250,14 @@
                       <input name="departmentLevel2"  class="form-control form-control-sm" id="InputName" type="text" >
                           </div>
                   </div>
-              
+
               <div class="form-row">
                   <div class="col-sm-4">
                       <label for="InputName"></br>Post Code</label>
-                      <input name="postcode" class="form-control form-control-sm" id="postcode" type="text" />
-                  </div>
+                      <input name="postcode" class="form-control form-control-sm" id="InputName" type="text" >
+                          </div>
                   <div class="col-sm-4">
                       <label ></br>Region</label>
-                      <input name="region" class="form-control form-control-sm" id="region" type="text" value="" />
-                      <!-- 
                       <select name="region" aria-controls="dataTable" class="form-control form-control-sm">
                           <option value="east of england">England</option>
                           <option value="east midlands">East Midlands</option>
@@ -220,12 +273,11 @@
                           <option value="west midlands">West Midlands</option>
                           <option value="yorkshire and the humber">Yorkshire and the Humber</option>
                           <option value="other">Other</option>
-                      </select>  -->
+                      </select>
                     </div>
                   <div class="col-sm-4">
                       <label for="InputName"></br>Country</label>
-                          <input name="country" type="text" id="country" class="form-control form-control-sm" value="" />
-                     <!--  <input ame="country" type="text" id="country" class="form-control form-control-sm" autocomplete="off" data-provide="typeahead" data-source='["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic (CAR)","Chad","Chile","China","Colombia","Comoros","Democratic Republic of the Congo","Republic of the Congo","Costa Rica","Cote d‘Ivoire",
+                      <input ame="country" type="text" id="country" class="form-control form-control-sm" autocomplete="off" data-provide="typeahead" data-source='["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic (CAR)","Chad","Chile","China","Colombia","Comoros","Democratic Republic of the Congo","Republic of the Congo","Costa Rica","Cote d‘Ivoire",
                           "Croatia","Cuba","Cyprus","Czech Republic","Denmark", "Djibouti", "Dominica","Dominican Republic","Ecuador","Egypt","El Salvador",
                           "Equatorial Guinea","Eritrea","Estonia","Ethiopia","Fiji","Finland",
                           "France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada",
@@ -249,17 +301,16 @@
                           "Uganda","Ukraine","United Arab Emirates (UAE)","United Kingdom (UK)",
                           "United States of America (USA)","Uruguay","Uzbekistan","Vanuatu",
                           "Vatican City (Holy See)","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"]'>
-                       -->
                   </div>
               </div>
-              
-              
+
+
               <div class="form-row" >
                   <div class="col-sm-6">
                       <label for="InputName"></br>Social account</label>
                       <input name="linkedIn" class="form-control form-control-sm" id="InputName" type="text" >
                           </div>
-                  
+
                   <div class="col-sm-6">
                       <label for="InputName"></br>Professional interests</label>
                       <input name="professionalInterest" class="form-control form-control-sm" id="InputName" type="text" >
@@ -283,7 +334,7 @@
           <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
               Submit
           </button>
-          
+
           <!-- Modal -->
           <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -326,129 +377,25 @@
     </div>
 
 
-    
+
     <!-- Latest compiled and minified JavaScript -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <!-- Bootstrap core JavaScript-->
     <script src="/js/chosen.jquery.js"></script>
-    <script src="js/jquery.combo.select.js"></script>
     <!-- Page level plugin JavaScript-->
     <script src="vendor/datatables/jquery.dataTables.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
     <!-- Custom scripts for all pages-->
-     <!--<script src="js/sb-admin.min.js"></script>-->
+    <script src="js/sb-admin.min.js"></script>
     <!-- Custom scripts for this page-->
-    <!--<script src="js/sb-admin-datatables.min.js"></script>-->
+    <script src="js/sb-admin-datatables.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
-    {{--<script src="js/bootstrap3-typeahead.js"></script>--}}
     <script>
         $('.chosen-select').chosen();
-    </script>
-
-        <script>
-            $(document).ready(function($) {
-                // Workaround for bug in mouse item selection
-//                $.fn.typeahead.Constructor.prototype.blur = function() {
-//                    var that = this;
-//                    setTimeout(function () { that.hide() }, 250);
-//                };
-                console.log(1111111111)
-//                $('#product_search').typeahead({
-//                    source: function(query, process) {
-//                        console.log(2222222222222)
-//                        return ["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"];
-//                    }
-//                });
-            })
         </script>
-    <script>
-     // match region country.
-     $("#postcode").change(function(){
-        postcode=$("#postcode").val();
-        if (postcode==""){
-           console.log("postcode is empty");
-           return false;
-        }
-        $.ajax({
-             type: "GET",
-             url: "<?php echo url('/'); ?>/postcode",
-             data: {postcode:postcode},
-             dataType: "json",
-			 timeout : 5000,
-             success: function(data){
-                $('#region').empty();
-                $('#country').empty();
-                $("#region").attr("value", data.region)
-                $("#country").attr("value", data.country)
-            },
-            error:function(){
-                console.log("request postcodes.io timeout over 5s");
-            }
-         });
-      });
-      // match org name.
-      function match_org(name){
-        
-      }
 
-      $(function() {
-        var name='';
-        $('#sel_org').comboSelect();
-        name=  $('#sel_org option:selected') .val();//选中的值
-        if (name == ""){
-           console.log("organisation is empty");
-           return false;
-        }
-        console.log(name);
-        $('#sel_org').change(function(){  
-            $.ajax({
-                type: "GET",
-                url: "<?php echo url('/'); ?>/match_org_name",
-                data: {name:name},
-                dataType: "json",
-                timeout : 1000,
-                success: function(data){
-                    if (data.code==0) {
-                       console.log(data);
-                    } else {
-                       window.location.href="<?php echo url('/'); ?>/organisation"; 
-                    }
-            },
-            error:function() {
-                console.log("request error");
-            }
-            });
-        });
-        
-      });
-
-
-     {{--$('#product_search').typeahead({--}}
-         {{--source: function (query, process) {--}}
-             {{--var parameter = {query: query};--}}
-             {{--$.post('@Url.Action("AjaxService")', parameter, function (data) {--}}
-                 {{--process(data);--}}
-             {{--});--}}
-         {{--}--}}
-     {{--});--}}
-    </script>
-        {{--<script>--}}
-            {{--$(document).ready(function($) {--}}
-                {{--// Workaround for bug in mouse item selection--}}
-                {{--$.fn.typeahead.Constructor.prototype.blur = function() {--}}
-                    {{--var that = this;--}}
-                    {{--setTimeout(function () { that.hide() }, 250);--}}
-                {{--};--}}
-
-                {{--$('#product_search').typeahead({--}}
-                    {{--source: function(query, process) {--}}
-                        {{--return ["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"];--}}
-                    {{--}--}}
-                {{--});--}}
-            {{--})--}}
-        {{--</script>--}}
 
   </div>
   </div>

@@ -17,6 +17,7 @@ class SearchController extends Controller
         $condition = trim($request->condition);
         $where = $this->getWhere($field, $entry, $noentry, $condition);
         $results = DB::select('select * from '. $table. ' where '.$where, []);
+//        echo $table;die;
         return view('searchreturn',[
                     'table' =>  $table,
                     'results' => $results,

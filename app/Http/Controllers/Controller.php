@@ -38,8 +38,8 @@ class Controller extends BaseController
                 return json_encode($data);
             }
         }
-        // echo "<pre>";
-        // print_r($res);
+//         echo "<pre>";
+//         print_r($res);
         // die;
         echo json_encode($res);      
     }

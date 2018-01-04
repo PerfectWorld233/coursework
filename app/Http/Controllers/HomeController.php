@@ -34,18 +34,20 @@ class HomeController extends Controller
       
         $email = $request->email;
         $password = $request->password;
-        // echo $password;
+//         echo $password;die;
         // echo sha1($password);die;
+//        print_r(DB::table('user')->where('lname', 'admin')->first());die;
         $user = DB::table('user')
             ->where([
                 ['email', $email],
                 ['password', sha1($password)]
             ])->first();
+//        dd($user);die;
         if ($user && $user->type == 2) {
             $superadmin_id = $user->id;
             $request->session()->push('superadmin_login', true);
             $request->session()->push('superadmin_id', $superadmin_id);
-            // var_dump($request->session()->get('superadmin_login'));die;
+//             var_dump($request->session()->get('superadmin_login'));die;
             return \redirect()->to('/home');
 
         } else {
