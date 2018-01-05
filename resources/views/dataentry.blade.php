@@ -182,8 +182,8 @@
                       <label for="InputName"></br>Organisation</label>
                       {{--<select id="sel_org" name="organisation">--}}
                           {{--  <option value=""></option>  --}}
-                      <input id="product_search" class="form-control form-control-sm" type="text" data-provide="typeahead"
-                             data-source='["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"]'>
+                      <input id="product_search" class="form-control form-control-sm" type="text" data-provide="typeahead">
+                             {{--data-source='["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"]'>--}}
                       {{--</select>--}}
                  </div>
                   <div class="col-sm-6">
@@ -354,10 +354,9 @@
 //                    var that = this;
 //                    setTimeout(function () { that.hide() }, 250);
 //                };
-                console.log(1111111111)
+//                console.log(1111111111)
 //                $('#product_search').typeahead({
 //                    source: function(query, process) {
-//                        console.log(2222222222222)
 //                        return ["Deluxe Bicycle", "Super Deluxe Trampoline", "Super Duper Scooter"];
 //                    }
 //                });

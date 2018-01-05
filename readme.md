@@ -70,3 +70,5 @@ echo '</pre>';
 echo '<pre>';  
 var_dump( Input::get() );   // query string  
 echo '</pre>';  
+
+# 用户名：admin   密码： test
