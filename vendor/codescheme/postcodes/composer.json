@@ -1,0 +1,44 @@
+{
+    "name": "codescheme/postcodes",
+    "description": "UK Postcode API Facade for Laravel",
+    "keywords": ["postcodes", "postcode","laravel", "laravel5", "api", "json"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Codescheme",
+            "email": "codescheme@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^5.5 || ^7.0",
+        "illuminate/support": "5.*",
+        "guzzlehttp/guzzle": "~6.0",
+        "guzzlehttp/psr7": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.0 || ^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codescheme\\Postcodes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Codescheme\\Postcodes\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codescheme\\Postcodes\\PostcodeServiceProvider"
+            ],
+            "aliases": {
+                "Postcode": "Codescheme\\Postcodes\\Facades\\Postcode"
+            }
+        }
+    }
+}
